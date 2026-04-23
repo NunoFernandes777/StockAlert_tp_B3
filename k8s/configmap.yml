@@ -1,0 +1,10 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stockalert-config
+  namespace: stockalert
+data:
+  APP_ENV: "production"
+  APP_VERSION: "v1.0.4"
+  DEFAULT_THRESHOLD: "10"
+  PORT: "3000"
