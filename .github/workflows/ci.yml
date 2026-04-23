@@ -42,5 +42,13 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
       - name: Build image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/stockalert:${{ github.ref_name }} .
+      - name: Trivy scan (CRITICAL)
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            ghcr.io/aquasecurity/trivy:latest image \
+            --exit-code 1 \
+            --severity CRITICAL \
+            ${{ secrets.DOCKERHUB_USERNAME }}/stockalert:${{ github.ref_name }}
       - name: Push image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/stockalert:${{ github.ref_name }}
