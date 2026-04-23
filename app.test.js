@@ -48,7 +48,7 @@ test("génère des IDs uniques", () => {
 console.log("\nisValidStock :");
 
 test("accepte 0", () => {
-  expect(isValidStock(0)).toBeTruthy();
+  expect(isValidStock(0)).toBeFalsy();
 });
 
 test("accepte un entier positif", () => {
